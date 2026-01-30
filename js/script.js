@@ -1,45 +1,36 @@
-const statusText = document.getElementById("status");
-const resultDiv = document.getElementById("result");
-
-const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
-
-const recognition = new SpeechRecognition();
-recognition.lang = "en-US";
-recognition.interimResults = false;
-
-function speak(text) {
-  const speech = new SpeechSynthesisUtterance(text);
-  speech.lang = "en-US";
-  speech.rate = 1;
-  window.speechSynthesis.speak(speech);
-}
-
-function startListening() {
-  statusText.innerText = "Listening...";
-  recognition.start();
-}
-
-recognition.onresult = (event) => {
-  const command = event.results[0][0].transcript.toLowerCase();
-  resultDiv.innerText = `You said: "${command}"`;
-  handleCommand(command);
-};
-
-recognition.onend = () => {
-  statusText.innerText = "Click to talk";
-};
-
 function handleCommand(command) {
   if (command.includes("hello")) {
     speak("Hello sir, how can I help you?");
-  } 
+  }
+
   else if (command.includes("time")) {
     speak(`The time is ${new Date().toLocaleTimeString()}`);
-  } 
-  else if (command.includes("your name")) {
-    speak("I am Jarvis, your voice assistant.");
-  } 
+  }
+
+  else if (command.includes("open google")) {
+    speak("Opening Google");
+    window.open("https://www.google.com", "_blank");
+  }
+
+  else if (command.includes("open youtube")) {
+    speak("Opening YouTube");
+    window.open("https://www.youtube.com", "_blank");
+  }
+
+  else if (command.includes("open facebook")) {
+    speak("Opening Facebook");
+    window.open("https://www.facebook.com", "_blank");
+  }
+
+  else if (command.includes("open github")) {
+    speak("Opening GitHub");
+    window.open("https://www.github.com", "_blank");
+  }
+
+  else if (command.includes("open website")) {
+    speak("Please say the website name");
+  }
+
   else {
     speak("Sorry, I did not understand that.");
   }
